@@ -1,0 +1,15 @@
+{
+	"ImportPath": "github.com/jolivares/memcache-cli",
+	"GoVersion": "go1.5",
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.2.0-143-ga65b733",
+			"Rev": "a65b733b303f0055f8d324d805f393cd3e7a7904"
+		},
+		{
+			"ImportPath": "github.com/ziutek/telnet",
+			"Rev": "49d9be70897fe0a7400a152121453075b2835866"
+		}
+	]
+}
