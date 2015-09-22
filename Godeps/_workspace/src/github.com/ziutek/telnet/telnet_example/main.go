@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jolivares/memcache-cli/Godeps/_workspace/src/github.com/ziutek/telnet"
+	"github.com/jolivares/memcache-cmd/Godeps/_workspace/src/github.com/ziutek/telnet"
 	"log"
 	"os"
 	"time"

@@ -8,15 +8,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jolivares/memcache-cli/Godeps/_workspace/src/github.com/codegangsta/cli"
-	"github.com/jolivares/memcache-cli/Godeps/_workspace/src/github.com/ziutek/telnet"
+	"github.com/jolivares/memcache-cmd/Godeps/_workspace/src/github.com/codegangsta/cli"
+	"github.com/jolivares/memcache-cmd/Godeps/_workspace/src/github.com/ziutek/telnet"
 )
 
 const timeout = 10 * time.Second
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "memcahe-cli"
+	app.Name = "memcahe-cmd"
 
 	hostFlag := cli.StringFlag{
 		Name:  "host",

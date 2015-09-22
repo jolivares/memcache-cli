@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/jolivares/memcache-cli",
+	"ImportPath": "github.com/jolivares/memcache-cmd",
 	"GoVersion": "go1.5",
 	"Deps": [
 		{
