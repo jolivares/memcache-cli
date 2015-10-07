@@ -8,6 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/rainycape/memcache"
+
 	"github.com/jolivares/memcache-cmd/Godeps/_workspace/src/github.com/codegangsta/cli"
 	"github.com/jolivares/memcache-cmd/Godeps/_workspace/src/github.com/ziutek/telnet"
 )
@@ -32,9 +34,9 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			Name:    "list-all",
+			Name:    "list-keys",
 			Aliases: []string{"l"},
-			Usage:   "list all keys",
+			Usage:   "list keys",
 			Flags: []cli.Flag{
 				hostFlag,
 				prefixFlag,
@@ -43,13 +45,46 @@ func main() {
 				listKeys(c.String("host"), c.String("prefix"))
 			},
 		},
+		{
+			Name:    "delete-entries",
+			Aliases: []string{"d"},
+			Usage:   "delete entries",
+			Flags: []cli.Flag{
+				hostFlag,
+				prefixFlag,
+			},
+			Action: func(c *cli.Context) {
+				deleteKeys(c.String("host"), c.String("prefix"))
+			},
+		},
 	}
 
 	app.Run(os.Args)
 }
 
+func deleteKeys(addr string, prefix string) {
+	println("Deleting keys (hosts = "+addr, ", prefix = '"+prefix+"')")
+	t, err := telnet.Dial("tcp", addr)
+	checkErr(err)
+	t.SetUnixWriteMode(true)
+
+	slabs := getSlabs(t)
+	keys := findKeys(t, slabs, prefix)
+
+	mc, e1 := memcache.New(addr)
+	checkErr(e1)
+
+	for i := range keys {
+		key := keys[i]
+		log.Printf("Removing key: %s", key)
+
+		e2 := mc.Delete(key)
+		checkErr(e2)
+	}
+}
+
 func listKeys(addr string, prefix string) {
-	println("Listing keys for " + addr)
+	println("Listing keys (hosts = "+addr, ", prefix = '"+prefix+"')")
 	t, err := telnet.Dial("tcp", addr)
 	checkErr(err)
 	t.SetUnixWriteMode(true)
